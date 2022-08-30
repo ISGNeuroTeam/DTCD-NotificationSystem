@@ -1,29 +1,34 @@
 import resolve from '@rollup/plugin-node-resolve';
+import commonjs from '@rollup/plugin-commonjs';
+import pluginMeta from './src/Plugin.Meta';
 import babel from '@rollup/plugin-babel';
 import json from '@rollup/plugin-json';
-
 import { version } from './package.json';
 
 const watch = Boolean(process.env.ROLLUP_WATCH);
 
-const pluginName = 'NotificationSystem';
+const pluginName = pluginMeta.name;
 
-const outputFile = `${pluginName}.js`;
-const outputDirectory = watch
-  ? `./../../DTCD/server/plugins/DTCD-${pluginName}_${version}`
-  : `./build`;
+const output = watch
+  ? `./../../DTCD/server/plugins/DTCD-${pluginName}_${version}/${pluginName}.js`
+  : `./build/${pluginName}.js`;
 
-const plugins = [resolve(), babel({ babelHelpers: 'bundled' }), json()];
+const plugins = [
+  babel({babelHelpers: 'bundled'}),
+  commonjs(),
+  resolve({ jsnext: true, preferBuiltins: true, browser: true }),
+  json(),
+];
 
 export default {
-  input: './src/NotificationSystem.js',
+  input: `./src/Plugin.js`,
   output: {
-    file: `${outputDirectory}/${outputFile}`,
+    file: output,
     format: 'esm',
     sourcemap: false,
   },
   watch: {
-    include: ['./*/**'],
+    include: ['./src/**'],
   },
   plugins,
 };
