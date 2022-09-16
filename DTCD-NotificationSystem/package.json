@@ -1,6 +1,6 @@
 {
   "name": "notification-system",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "NotificationSystem for DTCD application",
   "main": "./src/NotificationSystem.js",
   "scripts": {
