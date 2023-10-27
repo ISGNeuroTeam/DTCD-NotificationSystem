@@ -5,5 +5,5 @@ export default {
   type: 'core',
   title: 'Система уведомлений',
   name: 'NotificationSystem',
-  priority: 1,
+  priority: 5,
 };
